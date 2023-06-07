@@ -7,13 +7,30 @@ public class InvokeLater extends JFrame {
     public InvokeLater() throws HeadlessException {
         super("InvokeLater");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        JLabel textField = new JLabel("Hi");
         button = new JButton("Hard Work");
         button.addActionListener(e -> {
+
             new ComplexJobThread().start();
+            textField.setText("Привет");
             button.setText("Ждем");
         });
+
+
+        //ТАк запускать поток нельзя, это может привести к конфликтам или блокировкам. Нужно это делать через поток событий
+//        Thread thread = new Thread(() -> {
+//            try {
+//                Thread.sleep(6000);
+//                button.setText("Новый поток");
+////                repaint();
+//            } catch (InterruptedException ex) {
+//                throw new RuntimeException(ex);
+//            }
+//        });
+//        thread.start();
+
         setLayout(new FlowLayout());
-        add(new JTextField(20));
+        add(textField);
         add(button);
         setSize(300, 300);
         setVisible(true);
